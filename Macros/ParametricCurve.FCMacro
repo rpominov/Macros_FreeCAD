@@ -89,27 +89,27 @@ class ParamCurv(QtGui.QWidget):
           interval = eval(str(self.le_interval.text()))
           num_steps=(max_t-t)/interval
         except:
-	  FreeCAD.Console.PrintError("Error in evaluating the parameters")
+            FreeCAD.Console.PrintError("Error in evaluating the parameters")
         points = []
         try:
-	  for i in range(int(num_steps)+1):
-	      x_point = eval(x_equation)
-	      y_point = eval(y_equation)
-	      z_point = eval(z_equation)
-	      points.append(FreeCAD.Vector(x_point,y_point,z_point))
-	      t+=interval
-	  curve = Part.makePolygon(points)
-	  if self.cb_close_curve.isChecked():
-	      self.cclose = True
-	  else:
-	      self.cclose = False  
-	  if self.cb_bspline.isChecked():
-	      Draft.makeBSpline(curve,closed=self.cclose,face=False)
-	      #Draft.makeBezCurve(curva,closed=self.cclose,support=None)
-	  if self.cb_polyline.isChecked():
-	      Draft.makeWire(curve,closed=self.cclose,face=False)
+            for i in range(int(num_steps)+1):
+                x_point = eval(x_equation)
+                y_point = eval(y_equation)
+                z_point = eval(z_equation)
+                points.append(FreeCAD.Vector(x_point,y_point,z_point))
+                t+=interval
+            curve = Part.makePolygon(points)
+            if self.cb_close_curve.isChecked():
+                self.cclose = True
+            else:
+                self.cclose = False  
+            if self.cb_bspline.isChecked():
+                Draft.makeBSpline(curve,closed=self.cclose,face=False)
+                #Draft.makeBezCurve(curva,closed=self.cclose,support=None)
+            if self.cb_polyline.isChecked():
+                Draft.makeWire(curve,closed=self.cclose,face=False)
         except:
-	  FreeCAD.Console.PrintError("Error in evaluating the parametric function") 
+            FreeCAD.Console.PrintError("Error in evaluating the parametric function") 
             
     def Close(self):
         self.close()
@@ -122,5 +122,3 @@ d.setWidget(ParamCurv())
 d.toggleViewAction().setText("Parametric Curve")
 d.setAttribute(QtCore.Qt.WA_DeleteOnClose)
 mw.addDockWidget(QtCore. Qt.RightDockWidgetArea, d)
-
-
